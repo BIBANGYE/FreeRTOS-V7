@@ -242,10 +242,9 @@
  * function. */
 #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY	15
 
-/* The highest interrupt priority that can be used by any interrupt service
- * routine that makes calls to interrupt safe FreeRTOS API functions.  DO NOT
- * CALL INTERRUPT SAFE FREERTOS API FUNCTIONS FROM ANY INTERRUPT THAT HAS A
- * HIGHER PRIORITY THAN THIS! (higher priorities are lower numeric values. */
+/** 受 FreeRTOS 管理的最高优先级中断
+  *	允许用户在这个中断服务程序里面调用FreeRTOS 的 API 的最高优先级
+  */
 #define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY 5
 
 /* Interrupt priorities used by the kernel port layer itself.  These are generic

@@ -67,6 +67,8 @@
 /* 定义优先级分组 */
 #define NVIC_PREEMPT_PRIORITY	4
 
+#include "task_config.h"
+
 /* 通过取消注释或者添加注释的方式控制是否包含底层驱动模块 */
 //#include "bsp_msg.h"
 //#include "bsp_user_lib.h"
