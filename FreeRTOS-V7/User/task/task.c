@@ -2,6 +2,7 @@
 
 TaskHandle_t	xHandleTaskPrintf;
 TaskHandle_t	xHandleTaskLED;
+TaskHandle_t	xHandleTaskStack;
 
 
 static void vTaskPrintfInfo(void *pvParameters)
@@ -24,14 +25,14 @@ static void vTaskLED(void *pvParameters)
                 NULL,
                 2,
                 &xHandleTaskPrintf);
-    
+
     if(xHandleTaskPrintf != NULL)
     {
 //        vTaskDelete(xHandleTaskPrintf);
         vTaskSuspend(xHandleTaskPrintf);
         printf("任务挂起完毕\n");
     }
-    
+
     vTaskResume(xHandleTaskPrintf);
     printf("恢复任务完毕\n");
 
@@ -42,6 +43,23 @@ static void vTaskLED(void *pvParameters)
     }
 }
 
+//static void vTaskStack(void *pvParameters)
+//{
+//    uint8_t buf[4096];
+
+//    for(uint32_t i = 4096; i > 0; i--)
+//    {
+//        buf[i] = 0xA5;
+//        vTaskDelay(10);
+//    }
+//}
+
+# if(configCHECK_FOR_STACK_OVERFLOW > 0)
+void vApplicationStackOverflowHook(TaskHandle_t xTask,char * pcTaskName )
+{
+    printf("任务： %s 发现栈溢出\r\n", pcTaskName);
+}
+#endif
 
 void AppTaskCreate (void)
 {
@@ -51,6 +69,13 @@ void AppTaskCreate (void)
                 NULL,
                 3,
                 &xHandleTaskLED);
+
+//    xTaskCreate(vTaskStack,
+//                "vTaskStack",
+//                512,
+//                NULL,
+//                3,
+//                &xHandleTaskStack);
 }
 
 

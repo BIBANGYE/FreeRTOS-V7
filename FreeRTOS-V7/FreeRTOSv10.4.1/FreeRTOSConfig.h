@@ -70,7 +70,7 @@
   *     - 比通用方式高效
   *     - 限制可用优先级的最大数量为 32
   */
-#define configUSE_PORT_OPTIMISED_TASK_SELECTION	0
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION	1
 
 
 /**
@@ -98,15 +98,15 @@
 #define configCPU_CLOCK_HZ						( SystemCoreClock )
 
 /**
-  * 定义系统时钟节拍数， 单位 Hz，一般取 1000Hz 即可
+  * 定义系统时钟节拍数,提供心跳， 单位 Hz，一般取 1000Hz 即可
   */
 #define configTICK_RATE_HZ						( ( TickType_t ) 1000 )
 
 /**
-  * 应用程序任务可用的优先级数量，任意数量的任务可共用相同的优先级
+  * 任务优先级数量，任务可共用相同的优先级
   * 如果这个定义的是 5， 那么用户可以使用的优先级号是 0,1,2,3,4，不包含 5
   */
-#define configMAX_PRIORITIES					( 56 )
+#define configMAX_PRIORITIES					( 32 )
 
 /**
   * 空闲任务使用的堆栈大小，按字（4个字节）指定
@@ -238,8 +238,9 @@
 	#define configPRIO_BITS						4
 #endif
 
-/* The lowest interrupt priority that can be used in a call to a "set priority"
- * function. */
+/**
+  * 此宏定义是用来配置 FreeRTOS 用到的 SysTick 中断和 PendSV 中断的优先级
+  */
 #define configLIBRARY_LOWEST_INTERRUPT_PRIORITY	15
 
 /** 受 FreeRTOS 管理的最高优先级中断
