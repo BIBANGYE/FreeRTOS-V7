@@ -68,6 +68,7 @@
 #define NVIC_PREEMPT_PRIORITY	4
 
 #include "task_config.h"
+#include "bsp_sd_card.h"
 
 /* 通过取消注释或者添加注释的方式控制是否包含底层驱动模块 */
 //#include "bsp_msg.h"

@@ -6,6 +6,8 @@
 #include "FreeRTOSConfig.h"
 #include "task.h"
 
+#define TASKPRINTFINFO  0
+
 void AppTaskCreate (void);
 
 
