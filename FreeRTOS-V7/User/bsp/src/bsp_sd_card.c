@@ -17,7 +17,7 @@ uint8_t bsp_sd_init(void)
 
     if (sd_state == MSD_OK)
     {
-        printf("File:%s ;\r\nline %d ;\r\nSD卡初始化成功\r\n", __FILE__, __LINE__);
+        printf("ok\r\n");
     }
 
     return  sd_state;

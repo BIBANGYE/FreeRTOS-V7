@@ -40,10 +40,8 @@ void bsp_Init(void)
 {
     /* 配置MPU */
 	MPU_Config();
-	
 	/* 使能L1 Cache */
 	CPU_CACHE_Enable();
-
 	/* 
        STM32H7xx HAL 库初始化，此时系统用的还是H7自带的64MHz，HSI时钟:
 	   - 调用函数HAL_InitTick，初始化滴答时钟中断1ms。
@@ -70,7 +68,7 @@ void bsp_Init(void)
 #endif
 	
 	bsp_InitKey();    	/* 按键初始化，要放在滴答定时器之前，因为按钮检测是通过滴答定时器扫描 */
-	//bsp_InitTimer();  	/* 初始化滴答定时器 */
+	bsp_InitTimer();  	/* 初始化滴答定时器 */
 	bsp_InitUart();		/* 初始化串口 */
 	bsp_InitExtIO();	/* 初始化FMC总线74HC574扩展IO. 必须在 bsp_InitLed()前执行 */	
 	bsp_InitLed();    	/* 初始化LED */	
@@ -103,8 +101,8 @@ void bsp_Init(void)
 */
 static void SystemClock_Config(void)
 {
-	RCC_ClkInitTypeDef RCC_ClkInitStruct;
-	RCC_OscInitTypeDef RCC_OscInitStruct;
+	RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	RCC_OscInitTypeDef RCC_OscInitStruct = {0};
 	HAL_StatusTypeDef ret = HAL_OK;
 
 	/* 锁住SCU(Supply configuration update) */
@@ -181,7 +179,7 @@ static void SystemClock_Config(void)
 	HAL_EnableCompensationCell();
 
    /* AXI SRAM的时钟是上电自动使能的，而D2域的SRAM1，SRAM2和SRAM3要单独使能 */	
-#if 0
+#if 1
 	__HAL_RCC_D2SRAM1_CLK_ENABLE();
 	__HAL_RCC_D2SRAM2_CLK_ENABLE();
 	__HAL_RCC_D2SRAM3_CLK_ENABLE();

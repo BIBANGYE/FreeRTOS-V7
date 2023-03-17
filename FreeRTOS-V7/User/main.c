@@ -11,7 +11,7 @@
 int main(void)
 {
 	bsp_Init();		        /* 硬件初始化 */
-	
+    
 	AppTaskCreate();        /* 创建任务 */
 
 	vTaskStartScheduler();  /* 启动调度，开始执行任务 */

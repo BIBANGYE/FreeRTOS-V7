@@ -1,17 +1,14 @@
 #include "task_config.h"
 
-TaskHandle_t	xHandleTaskPrintf;
 TaskHandle_t	xHandleTaskLED;
-TaskHandle_t	xHandleTaskStack;
 
 #if (TASKPRINTFINFO == 1)
+TaskHandle_t	xHandleTaskPrintf;
 static void vTaskPrintfInfo(void *pvParameters)
 {
     for(;;)
     {
         printf("操作提示:\r\n");
-        printf("1. 启动一个自动重装软件定时器，每100ms翻转一次LED1和LED2\r\n");
-        printf("2. 再启动一个自动重装软件定时器，每500ms翻转一次LED3和LED4\r\n");
         vTaskDelay(500);
     }
 }
@@ -21,12 +18,14 @@ static void vTaskLED(void *pvParameters)
 {
     while(1)
     {
+//        printf("vTaskLED\n");
         bsp_LedToggle(2);
-        vTaskDelay(200);
+        vTaskDelay(800);
     }
 }
 
 # if(configCHECK_FOR_STACK_OVERFLOW > 0)
+TaskHandle_t	xHandleTaskStack;
 static void vTaskStack(void *pvParameters)
 {
     uint8_t buf[4096];
