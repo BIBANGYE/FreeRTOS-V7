@@ -938,8 +938,8 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
         }
     #endif /* configUSE_MUTEXES */
 
-    vListInitialiseItem( &( pxNewTCB->xStateListItem ) );
-    vListInitialiseItem( &( pxNewTCB->xEventListItem ) );
+    vListInitialiseItem( &( pxNewTCB->xStateListItem ) );	// 状态
+    vListInitialiseItem( &( pxNewTCB->xEventListItem ) );	// 事件
 
     /* Set the pxNewTCB as a link back from the ListItem_t.  This is so we can get
      * back to  the containing TCB from a generic item in a list. */
@@ -1071,15 +1071,16 @@ static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
 }
 /*-----------------------------------------------------------*/
 
+// 将新创建的任务加入到就绪链表中
 static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB )
 {
     /* Ensure interrupts don't access the task lists while the lists are being
      * updated. */
     taskENTER_CRITICAL();
     {
-        uxCurrentNumberOfTasks++;
+        uxCurrentNumberOfTasks++;	// 任务数量加1
 
-        if( pxCurrentTCB == NULL )
+        if( pxCurrentTCB == NULL )	// 第一个任务或者其它任务都处于挂起态
         {
             /* There are no other tasks, or all the other tasks are in
              * the suspended state - make this the current task. */
@@ -1090,7 +1091,7 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB )
                 /* This is the first task to be created so do the preliminary
                  * initialisation required.  We will not recover if this call
                  * fails, but we will report the failure. */
-                prvInitialiseTaskLists();
+                prvInitialiseTaskLists();	// 链表初始化,所有链表都设置为空链表
             }
             else
             {
@@ -1129,19 +1130,19 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB )
         #endif /* configUSE_TRACE_FACILITY */
         traceTASK_CREATE( pxNewTCB );
 
-        prvAddTaskToReadyList( pxNewTCB );
+        prvAddTaskToReadyList( pxNewTCB );	// 将 pxNewTCB 插入到通任务优先级的就绪链表尾部
 
         portSETUP_TCB( pxNewTCB );
     }
     taskEXIT_CRITICAL();
 
-    if( xSchedulerRunning != pdFALSE )
+    if( xSchedulerRunning != pdFALSE )	// 调度器正在运行
     {
         /* If the created task is of a higher priority than the current task
          * then it should run now. */
         if( pxCurrentTCB->uxPriority < pxNewTCB->uxPriority )
         {
-            taskYIELD_IF_USING_PREEMPTION();
+            taskYIELD_IF_USING_PREEMPTION();	// 任务切换
         }
         else
         {
@@ -1983,6 +1984,7 @@ static void prvAddNewTaskToReadyList( TCB_t * pxNewTCB )
 #endif /* ( ( INCLUDE_xTaskResumeFromISR == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) ) */
 /*-----------------------------------------------------------*/
 
+// 开始任务调度
 void vTaskStartScheduler( void )
 {
     BaseType_t xReturn;
@@ -2017,6 +2019,7 @@ void vTaskStartScheduler( void )
     #else /* if ( configSUPPORT_STATIC_ALLOCATION == 1 ) */
         {
             /* The Idle task is being created using dynamically allocated RAM. */
+			// 创建空闲任务
             xReturn = xTaskCreate( prvIdleTask,
                                    configIDLE_TASK_NAME,
                                    configMINIMAL_STACK_SIZE,

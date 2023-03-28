@@ -71,7 +71,7 @@ void vListInitialise( List_t * const pxList )
 // 链表项的初始化
 void vListInitialiseItem( ListItem_t * const pxItem )
 {
-    /* 使该链表项不被任何链表拥有 */
+    /* 使该链表项不属于任何链表 */
     pxItem->pxContainer = NULL;
 
     /* Write known values into the list item if
@@ -82,7 +82,7 @@ void vListInitialiseItem( ListItem_t * const pxItem )
 }
 /*-----------------------------------------------------------*/
 
-// 将 pxNewListItem 插入到 pxList 的后面
+// 将 pxNewListItem 插入到 链表 的最后面
 void vListInsertEnd( List_t * const pxList,
                      ListItem_t * const pxNewListItem )
 {
