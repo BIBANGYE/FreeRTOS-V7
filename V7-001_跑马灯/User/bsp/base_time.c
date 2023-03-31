@@ -1,5 +1,7 @@
 #include "base_time.h"
 
+// 基本定时器 TIM6 、TIM7
+
 TIM_HandleTypeDef tim_handle = {0};
 
 void base_time_init(TIM_TypeDef * TIMx)
@@ -22,7 +24,6 @@ void base_time_init(TIM_TypeDef * TIMx)
     HAL_TIM_Base_Start_IT(&tim_handle);
 }
 
-
 void TIM6_DAC_IRQHandler(void)
 {
     HAL_TIM_IRQHandler(&tim_handle);
@@ -30,6 +31,6 @@ void TIM6_DAC_IRQHandler(void)
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    printf("1\n");
+//    printf("Tim6 interrupt\n");
 }
 

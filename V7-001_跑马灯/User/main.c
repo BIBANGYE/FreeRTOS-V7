@@ -14,7 +14,9 @@ int main(void)
 	bsp_Init();		/* 硬件初始化 */
     
     base_time_init(TIM6);
+    common_time_init();
 	
+    star_timing(3000);
 	/* 进入主程序循环体 */
 	while (1)
 	{

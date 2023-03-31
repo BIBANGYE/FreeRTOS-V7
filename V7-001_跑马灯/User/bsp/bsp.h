@@ -65,6 +65,7 @@
 #endif
 
 #include "base_time.h"
+#include "common_time.h"
 
 /* 定义优先级分组 */
 #define NVIC_PREEMPT_PRIORITY	4
