@@ -124,7 +124,7 @@ void bsp_InitTimer(void)
 	
 	g_ucEnableSystickISR = 1;		/* 1表示执行systick中断 */
 	
-//	bsp_InitHardTimer();
+	// bsp_InitHardTimer();
 }
 
 /*
@@ -639,57 +639,57 @@ void bsp_StartHardTimer(uint8_t _CC, uint32_t _uiTimeOut, void * _pCallBack)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-//void TIM_HARD_IRQHandler(void)
-//{
-//	uint16_t itstatus = 0x0, itenable = 0x0;
-//	TIM_TypeDef* TIMx = TIM_HARD;
-//	
-//    
-//  	itstatus = TIMx->SR & TIM_IT_CC1;
-//	itenable = TIMx->DIER & TIM_IT_CC1;
-//    
-//	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
-//	{
-//		TIMx->SR = (uint16_t)~TIM_IT_CC1;
-//		TIMx->DIER &= (uint16_t)~TIM_IT_CC1;		/* 禁能CC1中断 */	
+void TIM_HARD_IRQHandler(void)
+{
+	uint16_t itstatus = 0x0, itenable = 0x0;
+	TIM_TypeDef* TIMx = TIM_HARD;
+	
+   
+ 	itstatus = TIMx->SR & TIM_IT_CC1;
+	itenable = TIMx->DIER & TIM_IT_CC1;
+   
+	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
+	{
+		TIMx->SR = (uint16_t)~TIM_IT_CC1;
+		TIMx->DIER &= (uint16_t)~TIM_IT_CC1;		/* 禁能CC1中断 */	
 
-//        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
-//        s_TIM_CallBack1();
-//    }
+       /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
+       s_TIM_CallBack1();
+   }
 
-//	itstatus = TIMx->SR & TIM_IT_CC2;
-//	itenable = TIMx->DIER & TIM_IT_CC2;
-//	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
-//	{
-//		TIMx->SR = (uint16_t)~TIM_IT_CC2;
-//		TIMx->DIER &= (uint16_t)~TIM_IT_CC2;		/* 禁能CC2中断 */	
+	itstatus = TIMx->SR & TIM_IT_CC2;
+	itenable = TIMx->DIER & TIM_IT_CC2;
+	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
+	{
+		TIMx->SR = (uint16_t)~TIM_IT_CC2;
+		TIMx->DIER &= (uint16_t)~TIM_IT_CC2;		/* 禁能CC2中断 */	
 
-//        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
-//        s_TIM_CallBack2();
-//    }
+       /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
+       s_TIM_CallBack2();
+   }
 
-//	itstatus = TIMx->SR & TIM_IT_CC3;
-//	itenable = TIMx->DIER & TIM_IT_CC3;
-//	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
-//	{
-//		TIMx->SR = (uint16_t)~TIM_IT_CC3;
-//		TIMx->DIER &= (uint16_t)~TIM_IT_CC3;		/* 禁能CC2中断 */	
+	itstatus = TIMx->SR & TIM_IT_CC3;
+	itenable = TIMx->DIER & TIM_IT_CC3;
+	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
+	{
+		TIMx->SR = (uint16_t)~TIM_IT_CC3;
+		TIMx->DIER &= (uint16_t)~TIM_IT_CC3;		/* 禁能CC2中断 */	
 
-//        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
-//        s_TIM_CallBack3();
-//    }
+       /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
+       s_TIM_CallBack3();
+   }
 
-//	itstatus = TIMx->SR & TIM_IT_CC4;
-//	itenable = TIMx->DIER & TIM_IT_CC4;
-//	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
-//	{
-//		TIMx->SR = (uint16_t)~TIM_IT_CC4;
-//		TIMx->DIER &= (uint16_t)~TIM_IT_CC4;		/* 禁能CC4中断 */	
+	itstatus = TIMx->SR & TIM_IT_CC4;
+	itenable = TIMx->DIER & TIM_IT_CC4;
+	if ((itstatus != (uint16_t)RESET) && (itenable != (uint16_t)RESET))
+	{
+		TIMx->SR = (uint16_t)~TIM_IT_CC4;
+		TIMx->DIER &= (uint16_t)~TIM_IT_CC4;		/* 禁能CC4中断 */	
 
-//        /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
-//        s_TIM_CallBack4();
-//    }	
-//}
+       /* 先关闭中断，再执行回调函数。因为回调函数可能需要重启定时器 */
+       s_TIM_CallBack4();
+   }	
+}
 
 #endif
 

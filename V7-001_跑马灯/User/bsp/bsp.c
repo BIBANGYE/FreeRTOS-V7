@@ -1,69 +1,66 @@
 #include "bsp.h"
 
-
-
 /*
 *********************************************************************************************************
-*	                                   º¯ÊýÉùÃ÷
+*	                                   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *********************************************************************************************************
 */
 static void SystemClock_Config(void);
 static void CPU_CACHE_Enable(void);
 static void MPU_Config(void);
 
-
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: bsp_Init
-*	¹¦ÄÜËµÃ÷: ³õÊ¼»¯ËùÓÐµÄÓ²¼þÉè±¸¡£¸Ãº¯ÊýÅäÖÃCPU¼Ä´æÆ÷ºÍÍâÉèµÄ¼Ä´æÆ÷²¢³õÊ¼»¯Ò»Ð©È«¾Ö±äÁ¿¡£Ö»ÐèÒªµ÷ÓÃÒ»´Î
-*	ÐÎ    ²Î£ºÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: bsp_Init
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ó²ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CPUï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ò»Ð©È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+*	ï¿½ï¿½    ï¿½Î£ï¿½ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 void bsp_Init(void)
 {
-    /* ÅäÖÃMPU */
+	/* ï¿½ï¿½ï¿½ï¿½MPU */
 	MPU_Config();
-	
-	/* Ê¹ÄÜL1 Cache */
+
+	/* Ê¹ï¿½ï¿½L1 Cache */
 	CPU_CACHE_Enable();
 
-	/* 
-       STM32H7xx HAL ¿â³õÊ¼»¯£¬´ËÊ±ÏµÍ³ÓÃµÄ»¹ÊÇH7×Ô´øµÄ64MHz£¬HSIÊ±ÖÓ:
-	   - µ÷ÓÃº¯ÊýHAL_InitTick£¬³õÊ¼»¯µÎ´ðÊ±ÖÓÖÐ¶Ï1ms¡£
-	   - ÉèÖÃNVIVÓÅÏÈ¼¶·Ö×éÎª4¡£
+	/*
+	   STM32H7xx HAL ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ÏµÍ³ï¿½ÃµÄ»ï¿½ï¿½ï¿½H7ï¿½Ô´ï¿½ï¿½ï¿½64MHzï¿½ï¿½HSIÊ±ï¿½ï¿½:
+	   - ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½HAL_InitTickï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Î´ï¿½Ê±ï¿½ï¿½ï¿½Ð¶ï¿½1msï¿½ï¿½
+	   - ï¿½ï¿½ï¿½ï¿½NVIVï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½Îª4ï¿½ï¿½
 	 */
 	HAL_Init();
 
-	/* 
-       ÅäÖÃÏµÍ³Ê±ÖÓµ½400MHz
-       - ÇÐ»»Ê¹ÓÃHSE¡£
-       - ´Ëº¯Êý»á¸üÐÂÈ«¾Ö±äÁ¿SystemCoreClock£¬²¢ÖØÐÂÅäÖÃHAL_InitTick¡£
-    */
+	/*
+	   ï¿½ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½Óµï¿½400MHz
+	   - ï¿½Ð»ï¿½Ê¹ï¿½ï¿½HSEï¿½ï¿½
+	   - ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½SystemCoreClockï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½HAL_InitTickï¿½ï¿½
+	*/
 	SystemClock_Config();
 
-	/* 
-	   Event Recorder£º
-	   - ¿ÉÓÃÓÚ´úÂëÖ´ÐÐÊ±¼ä²âÁ¿£¬MDK5.25¼°ÆäÒÔÉÏ°æ±¾²ÅÖ§³Ö£¬IAR²»Ö§³Ö¡£
-	   - Ä¬ÈÏ²»¿ªÆô£¬Èç¹ûÒªÊ¹ÄÜ´ËÑ¡Ïî£¬Îñ±Ø¿´V7¿ª·¢°åÓÃ»§ÊÖ²áµÚ8ÕÂ
-	*/	
-#if Enable_EventRecorder == 1  
-	/* ³õÊ¼»¯EventRecorder²¢¿ªÆô */
+	/*
+	   Event Recorderï¿½ï¿½
+	   - ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ö´ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MDK5.25ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°æ±¾ï¿½ï¿½Ö§ï¿½Ö£ï¿½IARï¿½ï¿½Ö§ï¿½Ö¡ï¿½
+	   - Ä¬ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½Ü´ï¿½Ñ¡ï¿½î£¬ï¿½ï¿½Ø¿ï¿½V7ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ö²ï¿½ï¿½8ï¿½ï¿½
+	*/
+#if Enable_EventRecorder == 1
+	/* ï¿½ï¿½Ê¼ï¿½ï¿½EventRecorderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	EventRecorderInitialize(EventRecordAll, 1U);
 	EventRecorderStart();
 #endif
-	
-	bsp_InitKey();    	/* °´¼ü³õÊ¼»¯£¬Òª·ÅÔÚµÎ´ð¶¨Ê±Æ÷Ö®Ç°£¬ÒòÎª°´Å¥¼ì²âÊÇÍ¨¹ýµÎ´ð¶¨Ê±Æ÷É¨Ãè */
-	bsp_InitTimer();  	/* ³õÊ¼»¯µÎ´ð¶¨Ê±Æ÷ */
-	bsp_InitUart();		/* ³õÊ¼»¯´®¿Ú */
-	bsp_InitExtIO();	/* ³õÊ¼»¯FMC×ÜÏß74HC574À©Õ¹IO. ±ØÐëÔÚ bsp_InitLed()Ç°Ö´ÐÐ */	
-	bsp_InitLed();    	/* ³õÊ¼»¯LED */	
+
+	bsp_InitKey();	 /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ÚµÎ´ï¿½Ê±ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½Î´ï¿½Ê±ï¿½ï¿½É¨ï¿½ï¿½ */
+	bsp_InitTimer(); /* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Î´ï¿½Ê±ï¿½ï¿½ */
+	bsp_InitUart();	 /* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	bsp_InitExtIO(); /* ï¿½ï¿½Ê¼ï¿½ï¿½FMCï¿½ï¿½ï¿½ï¿½74HC574ï¿½ï¿½Õ¹IO. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bsp_InitLed()Ç°Ö´ï¿½ï¿½ */
+	bsp_InitLed();	 /* ï¿½ï¿½Ê¼ï¿½ï¿½LED */
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: SystemClock_Config
-*	¹¦ÄÜËµÃ÷: ³õÊ¼»¯ÏµÍ³Ê±ÖÓ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: SystemClock_Config
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½Ê¼ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½
 *            	System Clock source            = PLL (HSE)
 *            	SYSCLK(Hz)                     = 400000000 (CPU Clock)
 *           	HCLK(Hz)                       = 200000000 (AXI and AHBs Clock)
@@ -80,8 +77,8 @@ void bsp_Init(void)
 *            	PLL_R                          = 2
 *            	VDD(V)                         = 3.3
 *            	Flash Latency(WS)              = 4
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 static void SystemClock_Config(void)
@@ -90,80 +87,82 @@ static void SystemClock_Config(void)
 	RCC_OscInitTypeDef RCC_OscInitStruct;
 	HAL_StatusTypeDef ret = HAL_OK;
 
-	/* Ëø×¡SCU(Supply configuration update) */
+	/* ï¿½ï¿½×¡SCU(Supply configuration update) */
 	MODIFY_REG(PWR->CR3, PWR_CR3_SCUEN, 0);
 
-	/* 
-      1¡¢Ð¾Æ¬ÄÚ²¿µÄLDOÎÈÑ¹Æ÷Êä³öµÄµçÑ¹·¶Î§£¬¿ÉÑ¡VOS1£¬VOS2ºÍVOS3£¬²»Í¬·¶Î§¶ÔÓ¦²»Í¬µÄFlash¶ÁËÙ¶È£¬
-         ÏêÇé¿´²Î¿¼ÊÖ²áµÄTable 12µÄ±í¸ñ¡£
-      2¡¢ÕâÀïÑ¡ÔñÊ¹ÓÃVOS1£¬µçÑ¹·¶Î§1.15V - 1.26V¡£
-    */
+	/*
+	  1ï¿½ï¿½Ð¾Æ¬ï¿½Ú²ï¿½ï¿½ï¿½LDOï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ñ¹ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ñ¡VOS1ï¿½ï¿½VOS2ï¿½ï¿½VOS3ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Î§ï¿½ï¿½Ó¦ï¿½ï¿½Í¬ï¿½ï¿½Flashï¿½ï¿½ï¿½Ù¶È£ï¿½
+		 ï¿½ï¿½ï¿½é¿´ï¿½Î¿ï¿½ï¿½Ö²ï¿½ï¿½Table 12ï¿½Ä±ï¿½ï¿½ï¿½
+	  2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ê¹ï¿½ï¿½VOS1ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½Î§1.15V - 1.26Vï¿½ï¿½
+	*/
 	__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-	while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
+	while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY))
+	{
+	}
 
-	/* Ê¹ÄÜHSE£¬²¢Ñ¡ÔñHSE×÷ÎªPLLÊ±ÖÓÔ´ */
+	/* Ê¹ï¿½ï¿½HSEï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½HSEï¿½ï¿½ÎªPLLÊ±ï¿½ï¿½Ô´ */
 	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
 	RCC_OscInitStruct.HSEState = RCC_HSE_ON;
 	RCC_OscInitStruct.HSIState = RCC_HSI_OFF;
 	RCC_OscInitStruct.CSIState = RCC_CSI_OFF;
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
 	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-		
+
 	RCC_OscInitStruct.PLL.PLLM = 5;
 	RCC_OscInitStruct.PLL.PLLN = 160;
 	RCC_OscInitStruct.PLL.PLLP = 2;
 	RCC_OscInitStruct.PLL.PLLR = 2;
-	RCC_OscInitStruct.PLL.PLLQ = 4;		
-		
+	RCC_OscInitStruct.PLL.PLLQ = 4;
+
 	RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
-	RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;	
+	RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
 	ret = HAL_RCC_OscConfig(&RCC_OscInitStruct);
-	if(ret != HAL_OK)
+	if (ret != HAL_OK)
 	{
-        Error_Handler(__FILE__, __LINE__);
+		Error_Handler(__FILE__, __LINE__);
 	}
 
-	/* 
-       Ñ¡ÔñPLLµÄÊä³ö×÷ÎªÏµÍ³Ê±ÖÓ
-       ÅäÖÃRCC_CLOCKTYPE_SYSCLKÏµÍ³Ê±ÖÓ
-       ÅäÖÃRCC_CLOCKTYPE_HCLK Ê±ÖÓ£¬¶ÔÓ¦AHB1£¬AHB2£¬AHB3ºÍAHB4×ÜÏß
-       ÅäÖÃRCC_CLOCKTYPE_PCLK1Ê±ÖÓ£¬¶ÔÓ¦APB1×ÜÏß
-       ÅäÖÃRCC_CLOCKTYPE_PCLK2Ê±ÖÓ£¬¶ÔÓ¦APB2×ÜÏß
-       ÅäÖÃRCC_CLOCKTYPE_D1PCLK1Ê±ÖÓ£¬¶ÔÓ¦APB3×ÜÏß
-       ÅäÖÃRCC_CLOCKTYPE_D3PCLK1Ê±ÖÓ£¬¶ÔÓ¦APB4×ÜÏß     
-    */
-	RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_D1PCLK1 | RCC_CLOCKTYPE_PCLK1 | \
-								 RCC_CLOCKTYPE_PCLK2  | RCC_CLOCKTYPE_D3PCLK1);
+	/*
+	   Ñ¡ï¿½ï¿½PLLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÏµÍ³Ê±ï¿½ï¿½
+	   ï¿½ï¿½ï¿½ï¿½RCC_CLOCKTYPE_SYSCLKÏµÍ³Ê±ï¿½ï¿½
+	   ï¿½ï¿½ï¿½ï¿½RCC_CLOCKTYPE_HCLK Ê±ï¿½Ó£ï¿½ï¿½ï¿½Ó¦AHB1ï¿½ï¿½AHB2ï¿½ï¿½AHB3ï¿½ï¿½AHB4ï¿½ï¿½ï¿½ï¿½
+	   ï¿½ï¿½ï¿½ï¿½RCC_CLOCKTYPE_PCLK1Ê±ï¿½Ó£ï¿½ï¿½ï¿½Ó¦APB1ï¿½ï¿½ï¿½ï¿½
+	   ï¿½ï¿½ï¿½ï¿½RCC_CLOCKTYPE_PCLK2Ê±ï¿½Ó£ï¿½ï¿½ï¿½Ó¦APB2ï¿½ï¿½ï¿½ï¿½
+	   ï¿½ï¿½ï¿½ï¿½RCC_CLOCKTYPE_D1PCLK1Ê±ï¿½Ó£ï¿½ï¿½ï¿½Ó¦APB3ï¿½ï¿½ï¿½ï¿½
+	   ï¿½ï¿½ï¿½ï¿½RCC_CLOCKTYPE_D3PCLK1Ê±ï¿½Ó£ï¿½ï¿½ï¿½Ó¦APB4ï¿½ï¿½ï¿½ï¿½
+	*/
+	RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_D1PCLK1 | RCC_CLOCKTYPE_PCLK1 |
+								   RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1);
 
 	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
 	RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
 	RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
-	RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;  
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2; 
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2; 
-	RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2; 
-	
-	/* ´Ëº¯Êý»á¸üÐÂSystemCoreClock£¬²¢ÖØÐÂÅäÖÃHAL_InitTick */
+	RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
+	RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
+	RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
+	RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
+
+	/* ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SystemCoreClockï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½HAL_InitTick */
 	ret = HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4);
-	if(ret != HAL_OK)
+	if (ret != HAL_OK)
 	{
-        Error_Handler(__FILE__, __LINE__);
+		Error_Handler(__FILE__, __LINE__);
 	}
 
-    /*
-      Ê¹ÓÃIOµÄ¸ßËÙÄ£Ê½£¬ÒªÊ¹ÄÜIO²¹³¥£¬¼´µ÷ÓÃÏÂÃæÈý¸öº¯Êý 
-      £¨1£©Ê¹ÄÜCSI clock
-      £¨2£©Ê¹ÄÜSYSCFG clock
-      £¨3£©Ê¹ÄÜI/O²¹³¥µ¥Ôª£¬ ÉèÖÃSYSCFG_CCCSR¼Ä´æÆ÷µÄbit0
-    */
-	__HAL_RCC_CSI_ENABLE() ;
+	/*
+	  Ê¹ï¿½ï¿½IOï¿½Ä¸ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ÒªÊ¹ï¿½ï¿½IOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	  ï¿½ï¿½1ï¿½ï¿½Ê¹ï¿½ï¿½CSI clock
+	  ï¿½ï¿½2ï¿½ï¿½Ê¹ï¿½ï¿½SYSCFG clock
+	  ï¿½ï¿½3ï¿½ï¿½Ê¹ï¿½ï¿½I/Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½SYSCFG_CCCSRï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½bit0
+	*/
+	__HAL_RCC_CSI_ENABLE();
 
-	__HAL_RCC_SYSCFG_CLK_ENABLE() ;
+	__HAL_RCC_SYSCFG_CLK_ENABLE();
 
 	HAL_EnableCompensationCell();
 
-   /* AXI SRAMµÄÊ±ÖÓÊÇÉÏµç×Ô¶¯Ê¹ÄÜµÄ£¬¶øD2ÓòµÄSRAM1£¬SRAM2ºÍSRAM3Òªµ¥¶ÀÊ¹ÄÜ */	
+	/* AXI SRAMï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Ô¶ï¿½Ê¹ï¿½ÜµÄ£ï¿½ï¿½ï¿½D2ï¿½ï¿½ï¿½SRAM1ï¿½ï¿½SRAM2ï¿½ï¿½SRAM3Òªï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ */
 #if 0
 	__HAL_RCC_D2SRAM1_CLK_ENABLE();
 	__HAL_RCC_D2SRAM2_CLK_ENABLE();
@@ -173,105 +172,104 @@ static void SystemClock_Config(void)
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: Error_Handler
-*	ÐÎ    ²Î: file : Ô´´úÂëÎÄ¼þÃû³Æ¡£¹Ø¼ü×Ö __FILE__ ±íÊ¾Ô´´úÂëÎÄ¼þÃû¡£
-*			  line £º´úÂëÐÐºÅ¡£¹Ø¼ü×Ö __LINE__ ±íÊ¾Ô´´úÂëÐÐºÅ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: Error_Handler
+*	ï¿½ï¿½    ï¿½ï¿½: file : Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ __FILE__ ï¿½ï¿½Ê¾Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+*			  line ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐºÅ¡ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ __LINE__ ï¿½ï¿½Ê¾Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *		Error_Handler(__FILE__, __LINE__);
 *********************************************************************************************************
 */
 void Error_Handler(char *file, uint32_t line)
 {
-	/* 
-		ÓÃ»§¿ÉÒÔÌí¼Ó×Ô¼ºµÄ´úÂë±¨¸æÔ´´úÂëÎÄ¼þÃûºÍ´úÂëÐÐºÅ£¬±ÈÈç½«´íÎóÎÄ¼þºÍÐÐºÅ´òÓ¡µ½´®¿Ú
-		printf("Wrong parameters value: file %s on line %d\r\n", file, line) 
+	/*
+		ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ä´ï¿½ï¿½ë±¨ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½ÐºÅ£ï¿½ï¿½ï¿½ï¿½ç½«ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ÐºÅ´ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		printf("Wrong parameters value: file %s on line %d\r\n", file, line)
 	*/
-	
-	/* ÕâÊÇÒ»¸öËÀÑ­»·£¬¶ÏÑÔÊ§°ÜÊ±³ÌÐò»áÔÚ´Ë´¦ËÀ»ú£¬ÒÔ±ãÓÚÓÃ»§²é´í */
+
+	/* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ */
 	if (line == 0)
 	{
 		return;
 	}
-	
-	while(1)
+
+	while (1)
 	{
 	}
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: MPU_Config
-*	¹¦ÄÜËµÃ÷: ÅäÖÃMPU
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: MPU_Config
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½MPU
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
-static void MPU_Config( void )
+static void MPU_Config(void)
 {
 	MPU_Region_InitTypeDef MPU_InitStruct;
 
-	/* ½ûÖ¹ MPU */
+	/* ï¿½ï¿½Ö¹ MPU */
 	HAL_MPU_Disable();
 
-	/* ÅäÖÃAXI SRAMµÄMPUÊôÐÔÎªWrite back, Read allocate£¬Write allocate */
-	MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
-	MPU_InitStruct.BaseAddress      = 0x24000000;
-	MPU_InitStruct.Size             = MPU_REGION_SIZE_512KB;
+	/* ï¿½ï¿½ï¿½ï¿½AXI SRAMï¿½ï¿½MPUï¿½ï¿½ï¿½ï¿½ÎªWrite back, Read allocateï¿½ï¿½Write allocate */
+	MPU_InitStruct.Enable = MPU_REGION_ENABLE;
+	MPU_InitStruct.BaseAddress = 0x24000000;
+	MPU_InitStruct.Size = MPU_REGION_SIZE_512KB;
 	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-	MPU_InitStruct.IsBufferable     = MPU_ACCESS_BUFFERABLE;
-	MPU_InitStruct.IsCacheable      = MPU_ACCESS_CACHEABLE;
-	MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
-	MPU_InitStruct.Number           = MPU_REGION_NUMBER0;
-	MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL1;
+	MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
+	MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
+	MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
+	MPU_InitStruct.Number = MPU_REGION_NUMBER0;
+	MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;
 	MPU_InitStruct.SubRegionDisable = 0x00;
-	MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
+	MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_ENABLE;
 
 	HAL_MPU_ConfigRegion(&MPU_InitStruct);
-	
-	
-	/* ÅäÖÃFMCÀ©Õ¹IOµÄMPUÊôÐÔÎªDevice»òÕßStrongly Ordered */
-	MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
-	MPU_InitStruct.BaseAddress      = 0x60000000;
-	MPU_InitStruct.Size             = ARM_MPU_REGION_SIZE_64KB;	
+
+	/* ï¿½ï¿½ï¿½ï¿½FMCï¿½ï¿½Õ¹IOï¿½ï¿½MPUï¿½ï¿½ï¿½ï¿½ÎªDeviceï¿½ï¿½ï¿½ï¿½Strongly Ordered */
+	MPU_InitStruct.Enable = MPU_REGION_ENABLE;
+	MPU_InitStruct.BaseAddress = 0x60000000;
+	MPU_InitStruct.Size = ARM_MPU_REGION_SIZE_64KB;
 	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-	MPU_InitStruct.IsBufferable     = MPU_ACCESS_BUFFERABLE;
-	MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;	/* ²»ÄÜÓÃMPU_ACCESS_CACHEABLE£¬»á³öÏÖ2´ÎCS¡¢WEÐÅºÅ */
-	MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
-	MPU_InitStruct.Number           = MPU_REGION_NUMBER1;
-	MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;
+	MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
+	MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE; /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½MPU_ACCESS_CACHEABLEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½CSï¿½ï¿½WEï¿½Åºï¿½ */
+	MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
+	MPU_InitStruct.Number = MPU_REGION_NUMBER1;
+	MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
 	MPU_InitStruct.SubRegionDisable = 0x00;
-	MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
-	
+	MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_ENABLE;
+
 	HAL_MPU_ConfigRegion(&MPU_InitStruct);
 
-	/*Ê¹ÄÜ MPU */
+	/*Ê¹ï¿½ï¿½ MPU */
 	HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: CPU_CACHE_Enable
-*	¹¦ÄÜËµÃ÷: Ê¹ÄÜL1 Cache
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: CPU_CACHE_Enable
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: Ê¹ï¿½ï¿½L1 Cache
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 static void CPU_CACHE_Enable(void)
 {
-	/* Ê¹ÄÜ I-Cache */
+	/* Ê¹ï¿½ï¿½ I-Cache */
 	SCB_EnableICache();
 
-	/* Ê¹ÄÜ D-Cache */
+	/* Ê¹ï¿½ï¿½ D-Cache */
 	SCB_EnableDCache();
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: bsp_RunPer10ms
-*	¹¦ÄÜËµÃ÷: ¸Ãº¯ÊýÃ¿¸ô10ms±»SystickÖÐ¶Ïµ÷ÓÃ1´Î¡£Ïê¼û bsp_timer.cµÄ¶¨Ê±ÖÐ¶Ï·þÎñ³ÌÐò¡£Ò»Ð©´¦ÀíÊ±¼äÒªÇó²»ÑÏ¸ñµÄ
-*			ÈÎÎñ¿ÉÒÔ·ÅÔÚ´Ëº¯Êý¡£±ÈÈç£º°´¼üÉ¨Ãè¡¢·äÃùÆ÷Ãù½Ð¿ØÖÆµÈ¡£
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: bsp_RunPer10ms
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½Ãºï¿½ï¿½ï¿½Ã¿ï¿½ï¿½10msï¿½ï¿½Systickï¿½Ð¶Ïµï¿½ï¿½ï¿½1ï¿½Î¡ï¿½ï¿½ï¿½ï¿½ bsp_timer.cï¿½Ä¶ï¿½Ê±ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Òªï¿½ï¿½ï¿½Ï¸ï¿½ï¿½
+*			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½Ú´Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç£ºï¿½ï¿½ï¿½ï¿½É¨ï¿½è¡¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ÆµÈ¡ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 void bsp_RunPer10ms(void)
@@ -281,50 +279,49 @@ void bsp_RunPer10ms(void)
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: bsp_RunPer1ms
-*	¹¦ÄÜËµÃ÷: ¸Ãº¯ÊýÃ¿¸ô1ms±»SystickÖÐ¶Ïµ÷ÓÃ1´Î¡£Ïê¼û bsp_timer.cµÄ¶¨Ê±ÖÐ¶Ï·þÎñ³ÌÐò¡£Ò»Ð©ÐèÒªÖÜÆÚÐÔ´¦ÀíµÄÊÂÎñ
-*			 ¿ÉÒÔ·ÅÔÚ´Ëº¯Êý¡£±ÈÈç£º´¥Ãþ×ø±êÉ¨Ãè¡£
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: bsp_RunPer1ms
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½Ãºï¿½ï¿½ï¿½Ã¿ï¿½ï¿½1msï¿½ï¿½Systickï¿½Ð¶Ïµï¿½ï¿½ï¿½1ï¿½Î¡ï¿½ï¿½ï¿½ï¿½ bsp_timer.cï¿½Ä¶ï¿½Ê±ï¿½Ð¶Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*			 ï¿½ï¿½ï¿½Ô·ï¿½ï¿½Ú´Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¨ï¿½è¡£
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 void bsp_RunPer1ms(void)
 {
-	
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: bsp_Idle
-*	¹¦ÄÜËµÃ÷: ¿ÕÏÐÊ±Ö´ÐÐµÄº¯Êý¡£Ò»°ãÖ÷³ÌÐòÔÚforºÍwhileÑ­»·³ÌÐòÌåÖÐÐèÒª²åÈë CPU_IDLE() ºêÀ´µ÷ÓÃ±¾º¯Êý¡£
-*			 ±¾º¯ÊýÈ±Ê¡Îª¿Õ²Ù×÷¡£ÓÃ»§¿ÉÒÔÌí¼ÓÎ¹¹·¡¢ÉèÖÃCPU½øÈëÐÝÃßÄ£Ê½µÄ¹¦ÄÜ¡£
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: bsp_Idle
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½Ê±Ö´ï¿½ÐµÄºï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½forï¿½ï¿½whileÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ CPU_IDLE() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*			 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±Ê¡Îªï¿½Õ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CPUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½Ä¹ï¿½ï¿½Ü¡ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 void bsp_Idle(void)
 {
-	/* --- Î¹¹· */
+	/* --- Î¹ï¿½ï¿½ */
 
-	/* --- ÈÃCPU½øÈëÐÝÃß£¬ÓÉSystick¶¨Ê±ÖÐ¶Ï»½ÐÑ»òÕßÆäËûÖÐ¶Ï»½ÐÑ */
+	/* --- ï¿½ï¿½CPUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½ï¿½ï¿½Systickï¿½ï¿½Ê±ï¿½Ð¶Ï»ï¿½ï¿½Ñ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï»ï¿½ï¿½ï¿½ */
 
-	/* ÀýÈç emWin Í¼ÐÎ¿â£¬¿ÉÒÔ²åÈëÍ¼ÐÎ¿âÐèÒªµÄÂÖÑ¯º¯Êý */
-	//GUI_Exec();
+	/* ï¿½ï¿½ï¿½ï¿½ emWin Í¼ï¿½Î¿â£¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½Í¼ï¿½Î¿ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ */
+	// GUI_Exec();
 
-	/* ÀýÈç uIP Ð­Òé£¬¿ÉÒÔ²åÈëuipÂÖÑ¯º¯Êý */
-	//TOUCH_CapScan();
+	/* ï¿½ï¿½ï¿½ï¿½ uIP Ð­ï¿½é£¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½uipï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ */
+	// TOUCH_CapScan();
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: HAL_Delay
-*	¹¦ÄÜËµÃ÷: ÖØ¶¨ÏòºÁÃëÑÓ³Ùº¯Êý¡£Ìæ»»HALÖÐµÄº¯Êý¡£ÒòÎªHALÖÐµÄÈ±Ê¡º¯ÊýÒÀÀµÓÚSystickÖÐ¶Ï£¬Èç¹ûÔÚUSB¡¢SD¿¨
-*             ÖÐ¶ÏÖÐÓÐÑÓ³Ùº¯Êý£¬Ôò»áËøËÀ¡£Ò²¿ÉÒÔÍ¨¹ýº¯ÊýHAL_NVIC_SetPriorityÌáÉýSystickÖÐ¶Ï
-*	ÐÎ    ²Î: ÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: HAL_Delay
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³Ùºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»»HALï¿½ÐµÄºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªHALï¿½Ðµï¿½È±Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Systickï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½USBï¿½ï¿½SDï¿½ï¿½
+*             ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³Ùºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½HAL_NVIC_SetPriorityï¿½ï¿½ï¿½ï¿½Systickï¿½Ð¶ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
-/* µ±Ç°Àý×ÓÊ¹ÓÃstm32h7xx_hal.cÄ¬ÈÏ·½Ê½ÊµÏÖ£¬Î´Ê¹ÓÃÏÂÃæÖØ¶¨ÏòµÄº¯Êý */
+/* ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½stm32h7xx_hal.cÄ¬ï¿½Ï·ï¿½Ê½Êµï¿½Ö£ï¿½Î´Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ */
 #if 0
 void HAL_Delay(uint32_t Delay)
 {
@@ -332,4 +329,4 @@ void HAL_Delay(uint32_t Delay)
 }
 #endif
 
-/***************************** °²¸»À³µç×Ó www.armfly.com (END OF FILE) *********************************/
+/***************************** ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ www.armfly.com (END OF FILE) *********************************/

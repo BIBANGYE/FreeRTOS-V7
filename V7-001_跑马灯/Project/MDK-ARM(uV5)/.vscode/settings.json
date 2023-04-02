@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/.d": true,
+        "**/.htm": true,
+        "**/.map": true
+    },
+    "files.associations": {
+        "pwm.h": "c"
+    }
+}
